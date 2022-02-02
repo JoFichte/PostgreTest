@@ -21,10 +21,10 @@ public class ReadMenu implements Menu {
 
         switch (menuSelection) {
             case "1":
-                System.out.println(readEntryById().toString());
+                readEntryById().stream().forEach(System.out::println);
                 start();
             case "2":
-                System.out.println(readEntryByFirstName().toString());
+                readEntryByFirstName().stream().forEach(System.out::println);
                 start();
             case "3":
                 readEntryByLastName().stream().forEach(System.out::println);
@@ -45,7 +45,7 @@ public class ReadMenu implements Menu {
         System.out.println("Back: Back to Main Menu");
     }
 
-    private FamilyMember readEntryById() {
+    private List<FamilyMember> readEntryById() {
         System.out.println("Enter ID you want to read");
         Scanner sc = new Scanner(System.in);
         String idSelection = sc.nextLine();
@@ -54,7 +54,7 @@ public class ReadMenu implements Menu {
         return readDatabaseEntry.readFamilyMemberEntryById(DatabaseConnection.getInstance().getConnection(), Integer.parseInt(idSelection));
     }
 
-    private FamilyMember readEntryByFirstName() {
+    private List<FamilyMember> readEntryByFirstName() {
         System.out.println("Enter first name you want to read");
         Scanner sc = new Scanner(System.in);
         String firstName = sc.nextLine();

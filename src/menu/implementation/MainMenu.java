@@ -40,7 +40,7 @@ public class MainMenu implements Menu {
             case "5":
                 ;
             case "exit":
-                return;
+                System.exit(0);
             default:
                 start();
         }
