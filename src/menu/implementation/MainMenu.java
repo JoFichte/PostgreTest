@@ -32,13 +32,16 @@ public class MainMenu implements Menu {
                 ReadMenu readMenu = new ReadMenu();
                 readMenu.start();
             case "2":
-                ;
+                NewEntryMenu newEntryMenu = new NewEntryMenu();
+                newEntryMenu.start();
             case "3":
-                ;
+                UpdateMenu updateMenu = new UpdateMenu();
+                updateMenu.start();
             case "4":
-                ;
+                DeletionMenu deletionMenu = new DeletionMenu();
+                deletionMenu.start();
             case "5":
-                ;
+
             case "exit":
                 System.exit(0);
             default:

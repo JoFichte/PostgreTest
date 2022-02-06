@@ -8,22 +8,22 @@ import java.util.List;
 
 public class ReadDatabaseEntry {
 
-    public List<FamilyMember> readFamilyMemberEntryById(Connection con, int id) {
-        return readDatabaseEntry(con, "SELECT * from testscheme.testtable WHERE \"ID\" = ?", id);
+    public List<FamilyMember> readFamilyMemberEntryById(int id) {
+        return readDatabaseEntry("SELECT * from testscheme.testtable WHERE \"ID\" = ?", id);
     }
 
-    public List<FamilyMember> readFamilyMemberEntryByFirstName(Connection con, String firstName) {
-        return readDatabaseEntry(con, "SELECT * from testscheme.testtable WHERE firstname = ?", firstName);
+    public List<FamilyMember> readFamilyMemberEntryByFirstName(String firstName) {
+        return readDatabaseEntry("SELECT * from testscheme.testtable WHERE firstname = ?", firstName);
     }
 
-    public List<FamilyMember> readFamilyMemberEntryByLastName(Connection con, String lastName) {
-        return readDatabaseEntry(con, "SELECT * from testscheme.testtable WHERE lastname = ?", lastName);
+    public List<FamilyMember> readFamilyMemberEntryByLastName(String lastName) {
+        return readDatabaseEntry("SELECT * from testscheme.testtable WHERE lastname = ?", lastName);
     }
 
-    private List<FamilyMember> readDatabaseEntry(Connection con, String sql, String searchCriteria) {
+    private List<FamilyMember> readDatabaseEntry(String sql, String searchCriteria) {
         List<FamilyMember> familyMember = new ArrayList<>();
 
-        try (PreparedStatement preparedStatement = con.prepareStatement(sql)) {
+        try (PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql)) {
 
             preparedStatement.setString(1, searchCriteria);
 
@@ -42,10 +42,10 @@ public class ReadDatabaseEntry {
         return familyMember;
     }
 
-    private List<FamilyMember> readDatabaseEntry(Connection con, String sql, int searchCriteria) {
+    private List<FamilyMember> readDatabaseEntry(String sql, int searchCriteria) {
         List<FamilyMember> familyMember = new ArrayList<>();
 
-        try (PreparedStatement preparedStatement = con.prepareStatement(sql)) {
+        try (PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(sql)) {
 
             preparedStatement.setInt(1, searchCriteria);
 

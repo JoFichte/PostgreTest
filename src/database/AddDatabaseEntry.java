@@ -1,25 +1,26 @@
 package database;
 
+import data.FamilyMember;
+
 import java.sql.*;
 
 public class AddDatabaseEntry {
 
-    public boolean addFamilyMemberEntry(Connection con, int ID, String firstname, String lastname) {
+    public void addFamilyMemberEntry(FamilyMember familyMember) {
 
-        boolean success = false;
 
-        try (PreparedStatement preparedStatement = con.prepareStatement("INSERT INTO testscheme.testtable(\"ID\", firstname, lastname)" + "VALUES(?,?,?)", Statement.RETURN_GENERATED_KEYS)) {
+        try (PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement("INSERT INTO testscheme.testtable(\"ID\", firstname, lastname)" + "VALUES(?,?,?)", Statement.RETURN_GENERATED_KEYS)) {
 
-            preparedStatement.setInt(1, ID);
-            preparedStatement.setString(2, firstname);
-            preparedStatement.setString(3, lastname);
+            preparedStatement.setInt(1, familyMember.getId());
+            preparedStatement.setString(2, familyMember.getFirstName());
+            preparedStatement.setString(3, familyMember.getLastName());
 
             int affectedRows = preparedStatement.executeUpdate();
 
             if (affectedRows > 0) {
                 try (ResultSet resultSet = preparedStatement.getGeneratedKeys()) {
                     if (resultSet.next()) {
-                        success = true;
+                        System.out.println("Entry successfully added");
                     }
                 } catch (SQLException e) {
                     System.out.println(e.getMessage());
@@ -27,9 +28,6 @@ public class AddDatabaseEntry {
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            success = false;
         }
-
-        return success;
     }
 }

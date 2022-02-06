@@ -1,7 +1,6 @@
 package menu.implementation;
 
 import data.FamilyMember;
-import database.DatabaseConnection;
 import database.ReadDatabaseEntry;
 import menu.Menu;
 
@@ -51,7 +50,7 @@ public class ReadMenu implements Menu {
         String idSelection = sc.nextLine();
 
         ReadDatabaseEntry readDatabaseEntry = new ReadDatabaseEntry();
-        return readDatabaseEntry.readFamilyMemberEntryById(DatabaseConnection.getInstance().getConnection(), Integer.parseInt(idSelection));
+        return readDatabaseEntry.readFamilyMemberEntryById(Integer.parseInt(idSelection));
     }
 
     private List<FamilyMember> readEntryByFirstName() {
@@ -60,7 +59,7 @@ public class ReadMenu implements Menu {
         String firstName = sc.nextLine();
 
         ReadDatabaseEntry readDatabaseEntry = new ReadDatabaseEntry();
-        return readDatabaseEntry.readFamilyMemberEntryByFirstName(DatabaseConnection.getInstance().getConnection(), firstName);
+        return readDatabaseEntry.readFamilyMemberEntryByFirstName(firstName);
     }
 
     private List<FamilyMember> readEntryByLastName() {
@@ -69,6 +68,6 @@ public class ReadMenu implements Menu {
         String lastName = sc.nextLine();
 
         ReadDatabaseEntry readDatabaseEntry = new ReadDatabaseEntry();
-        return readDatabaseEntry.readFamilyMemberEntryByLastName(DatabaseConnection.getInstance().getConnection(), lastName);
+        return readDatabaseEntry.readFamilyMemberEntryByLastName(lastName);
     }
 }
